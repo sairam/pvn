@@ -2,14 +2,16 @@ Pvn::Application.routes.draw do
   devise_for :users
   
   # Home - Statistics
-  resources :home , :only => [:index]
+  resources   :home,    :only => [:index]
 
   # Documents
-  resources :documents , :only => [:new, :index, :show] do # should support edit in the future 
-    get :statistics, :on => :collection
+  resources   :documents do # should support edit in the future 
+    get       :stats,   :on => :member
+    get       :all,     :on => :collection
+    post      :upload,  :on => :collection
   end
 
-  root :to => "home#index"
+  root        :to => "home#index"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

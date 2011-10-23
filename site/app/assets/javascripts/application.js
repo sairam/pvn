@@ -8,3 +8,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+//  From Vendor
+//= require fileuploader

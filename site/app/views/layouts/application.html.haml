@@ -6,4 +6,12 @@
     = javascript_include_tag :application
     = csrf_meta_tags
   %body
-    = yield
+    = render "menu"
+    .container
+
+      %h3.alert= alert
+      %h3.notice= notice
+
+      .content
+        = yield
+      = render "footer"
