@@ -1,0 +1,8 @@
+= semantic_form_for document, :url => url_path do |f|
+  = f.input :title
+  = f.input :document_name
+  = f.input :example
+  = render 'custom_inputs', :form => f, :resource => document
+
+  .actions
+    = f.submit "#{type} Position", :class => 'btn primary'

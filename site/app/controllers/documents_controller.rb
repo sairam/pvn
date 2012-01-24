@@ -22,6 +22,7 @@ class DocumentsController < ApplicationController
     d = current_user.documents.new(params[:document])
     if d.save
       flash[:notice] = "Document created"
+      redirect_to index_document_path
     else
       redirect_to new_document_path(@document)
     end
