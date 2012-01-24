@@ -10,22 +10,18 @@ class User < ActiveRecord::Base
   acts_as_commentable
   acts_as_voter
 
-  has_many :user_langs
+  has_and_belongs_to_many :languages
   has_many :sentences
   has_many :comments
-
-  def name
-    "#{first_name} #{last_name}"
-  end
+  has_many :documents
 
 end
 
 # TODO add timezone to user
 # OPTIMIZE convert all datetime's to integers to that date can be stored in integer
+
 # create_table "users", :force => true do |t|
-#   t.string   "first_name",             :limit => 100
-#   t.string   "last_name",              :limit => 100
-#   t.string   "username",               :limit => 30
+#   t.string   "name",                   :limit => 100
 #   t.string   "email",                                 :default => "", :null => false
 #   t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
 #   t.string   "reset_password_token"
