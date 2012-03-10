@@ -33,9 +33,7 @@ class DocumentsController < ApplicationController
 
   # update the document
   def update
-
-    data = params[:document].delete :file
-    data.split(/\r\n/)
+    @document.find_translation.create_document!(params[:document].delete :file)
     # create document sequences and sentences
 
     if @document.update_attributes(params[:document], :as => :uploadable_user)
@@ -70,8 +68,8 @@ class DocumentsController < ApplicationController
   end
 
   def translation
-    l = Language.find_by_slug(params[:slug])
-    @translation = @document.translated_documents.find_by_language_id(l).summary
+    @translation = @document.find_translation(params[:slug])
+    @data = @translation.sequenced_sentences
   end
 
   # Show statistics on a document

@@ -20,6 +20,8 @@ class Document < ActiveRecord::Base
 
   validates_associated :languages # required if we are assigning languages from document form
 
+  after_create  :populate_data_in_source_language
+
   attr_accessor :file
 
   acts_as_votable
@@ -28,7 +30,22 @@ class Document < ActiveRecord::Base
     self.slug
   end
 
+  def find_translation(slug = nil)
+    l = if slug.nil?
+      self.source_language
+    else
+      Language.find_by_slug(slug)
+    end
+    self.translated_documents.find_by_language_id(l)
+  end
+
 private
+
+  def populate_data_in_source_language
+    td = self.translated_documents.find_by_language_id(source_language)
+    td.percent_complete = 100
+    td.save
+  end
 
   def validate_fields
     # self.languages << self.source_language unless self.languages.include? self.source_language

@@ -1,1 +1,21 @@
-= @translation.inspect
+- document = @document
+- translation = @translation
+- data = @data
+
+- if document.source_language == translation.language
+  h3 Source Document of #{document.title}
+- else
+  h3
+    'Translation of
+    u #{document.title}
+    |&nbsp;from&nbsp;
+    u #{document.source_language.name}
+    |&nbsp;to&nbsp;
+    u #{translation.language.name}
+    |&nbsp; &raquo; &nbsp;
+    '#{translation.percent_complete} % Complete
+hr
+- unless data.empty?
+  pre== data.join("<br /><br />")
+- else
+  h4 Sorry, no data has been approved for this translation

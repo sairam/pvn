@@ -1,6 +1,7 @@
 class Sequence < ActiveRecord::Base
   belongs_to  :translated_document
   belongs_to  :sentence
+
 end
 # == Schema Information
 # Schema version: 20120310183149

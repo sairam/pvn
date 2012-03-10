@@ -1,12 +1,13 @@
 class Sentence < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :translated_document
+  belongs_to  :user
+  belongs_to  :translated_document
 
-  has_one :sequence
+  has_one     :sequence
+  validates_associated :sequence
 
   # OPTIMIZE: self reference to sentence_id
-  belongs_to :sentence
-  has_many :sentences
+  belongs_to  :sentence
+  has_many    :sentences
 
 end
 # == Schema Information
@@ -31,4 +32,3 @@ end
 #  index_lines_on_document_lang_id               (translated_document_id)
 #  index_lines_on_user_id                        (user_id)
 #
-

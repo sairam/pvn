@@ -17,5 +17,7 @@
   {slug: "ka", name: "Kannada"  },
   {slug: "ma", name: "Malayalam"}
 ].each do |lang|
-  Lang.create(lang)
+  Language.create(lang)
 end
+
+User.create(email: 'pvn@example.com',password: '123456')
