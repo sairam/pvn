@@ -1,10 +1,12 @@
 # Allows a user to create a new document by uploading a document
-# We are currently only limiting to text files. We will later 
+# We are currently only limiting to text files. We will later
 # add support for doc, pdf, markdown format and html
 class DocumentsController < ApplicationController
 
+  before_filter :get_current_user # to be removed once devise is setup
+
   before_filter :new_document, :only => [:new]
-  before_filter :own_document, :only => [:update, :create, :delete, :edit]
+  before_filter :own_document, :only => [:update, :delete, :edit]
   before_filter :public_document, :only => [:show, :stats]
 
   before_filter :filter_params, :only => [:update, :create]
@@ -19,12 +21,13 @@ class DocumentsController < ApplicationController
 
   # save the document
   def create
-    d = current_user.documents.new(params[:document])
+    d = current_user.documents.new(params[:document], :as => :uploadable_user)
     if d.save
       flash[:notice] = "Document created"
-      redirect_to index_document_path
+      redirect_to documents_path
     else
-      redirect_to new_document_path(@document)
+      flash[:notice] = "Error creating document"
+      redirect_to new_document_path(d)
     end
   end
 
@@ -40,7 +43,7 @@ class DocumentsController < ApplicationController
 
   # delete the document
   def delete
-    flash[:notice] = "No can't do"
+    flash[:error] = "No can't do"
     redirect_to :documents_path
   end
 
@@ -61,6 +64,9 @@ class DocumentsController < ApplicationController
 
   # Show statistics on a document
   def stats
+  end
+
+  def show
   end
 
   # Get all documents by user
@@ -88,7 +94,11 @@ class DocumentsController < ApplicationController
 
   # load public documents
   def public_document
-    @document = Document.find_by_slug(params[:id]).visible
+    @document = Document.visible.find_by_slug(params[:id])
+  end
+
+  def get_current_user
+    sign_in(User.first)
   end
 
 end

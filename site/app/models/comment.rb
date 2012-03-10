@@ -63,3 +63,25 @@ end
 #
 # add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
 # add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+# == Schema Information
+# Schema version: 20120124141604
+#
+# Table name: comments
+#
+#  id               :integer         not null, primary key
+#  commentable_id   :integer         default(0), indexed
+#  commentable_type :string(255)     default("")
+#  body             :text            default("")
+#  user_id          :integer         default(0), not null, indexed
+#  parent_id        :integer
+#  lft              :integer
+#  rgt              :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+# Indexes
+#
+#  index_comments_on_commentable_id  (commentable_id)
+#  index_comments_on_user_id         (user_id)
+#
+

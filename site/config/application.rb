@@ -1,6 +1,12 @@
 require File.expand_path('../boot', __FILE__)
 
+require 'ostruct'
 require 'rails/all'
+
+config = YAML.load_file( File.expand_path('../app_config.yml', __FILE__) ) || {}
+app_config = config['default'] || {}
+app_config.update(config[Rails.env] || {})
+APP_CONFIG = OpenStruct.new( app_config.merge( YAML.load_file(File.expand_path('../app_config_overrides.yml', __FILE__) ) ) )
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -40,7 +46,7 @@ module Pvn
     config.filter_parameters += [:password]
 
     config.generators do |g|
-      g.template_engine :haml
+      g.template_engine :slim
     end
 
     # Enable the asset pipeline

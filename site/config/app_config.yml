@@ -1,0 +1,17 @@
+default: &default
+  session_secret: '63579e95c899f5c7340780adda807c85d773f9748bf86046824a4a92da420fbf732df5b4bce99f248da05a265f2f7e9925f5fb634f563aca3b5d389779fe5bdd'
+  session_store_id:  '_pvn_session'
+
+  cookie_store: :cookie_store
+
+  devise_email:   'notify@translat.in'
+  devise_pepper:  ''
+
+  newrelic_key: 'f6c5ec94f2e4e0a4fa43f40289cce0cd9ade74f4'
+  domain_name: 'translat.in'
+
+development:
+  <<: *default
+
+production:
+  <<: *default

@@ -38,3 +38,29 @@ end
 #
 # add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 # add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+# == Schema Information
+# Schema version: 20120124141604
+#
+# Table name: users
+#
+#  id                     :integer         not null, primary key
+#  name                   :string(100)
+#  email                  :string(255)     default(""), not null, indexed
+#  encrypted_password     :string(128)     default(""), not null
+#  reset_password_token   :string(255)     indexed
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer         default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  created_at             :datetime
+#  updated_at             :datetime
+#
+# Indexes
+#
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#
+

@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-Pvn::Application.config.session_store :cookie_store, key: '_pvn_session'
+Pvn::Application.config.session_store APP_CONFIG.cookie_store, key: APP_CONFIG.session_store_id
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

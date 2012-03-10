@@ -1,0 +1,10 @@
+.row
+  h3.span3 Document Title
+  h3.span5 Document Metadata
+br
+- documents.each do |document|
+  .row
+    .span3= link_to document.title, document_path(document.slug)
+    .span5 #{document.meta}
+
+  .row

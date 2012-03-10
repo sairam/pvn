@@ -6,7 +6,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
-//= require_tree .
+//
 //  From Vendor
 //= require fileuploader
+//
+// Twitter Bootstrap JS ( https://github.com/thomas-mcdonald/bootstrap-sass/tree/2.0 )
+//= require bootstrap
+//= require rails.validations
+// require rails.validations.formtastic
+//
+//= require_tree .
