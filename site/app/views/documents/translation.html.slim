@@ -16,6 +16,6 @@
     '#{translation.percent_complete} % Complete
 hr
 - unless data.empty?
-  pre== data.join("<br /><br />")
+  = render 'pretty_print', :data => data
 - else
   h4 Sorry, no data has been approved for this translation

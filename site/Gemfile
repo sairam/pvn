@@ -95,6 +95,9 @@ group :development do
   gem 'pry-rails' # for pow
   gem 'map_by_method' # Helper for pry
 
+  # profiler can be used in newrelic page
+  # gem 'ruby-prof'
+
   # Guard
   # gem 'guard-livereload'
   # gem 'guard-bundler'

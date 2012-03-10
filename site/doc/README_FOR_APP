@@ -1,17 +1,8 @@
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
 
-Developer TODO:
-Upgrade to
-- Bootstrap 2.0
-- Omniauth 1.0
-- Find plugins for formtastic for bootstrap
-- Check the latest versions of gems
-
-bundle exec annotate -r --position after
-bundle exec annotate --position after -i -m -s
-
 ---
+
 Tasks:
 (1)
 Document Owner ( a user ):
@@ -26,6 +17,8 @@ Given a sentence id in an yet-to-be translated article
 - Display previous and next lines
 - Display
 
+
+-- Misc data
 
 
 #photo-form

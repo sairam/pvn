@@ -3,6 +3,7 @@ class Document < ActiveRecord::Base
   has_many :translated_documents
   has_many :languages, :through => :translated_documents
   has_many :sentences , :through => :translated_documents
+  has_many :sequences , :through => :translated_documents
 
   belongs_to :source_language, :class_name => Language
   belongs_to :user
@@ -37,6 +38,14 @@ class Document < ActiveRecord::Base
       Language.find_by_slug(slug)
     end
     self.translated_documents.find_by_language_id(l)
+  end
+
+  def translatable_languages
+    self.languages - [source_language]
+  end
+
+  def source_translation
+    find_translation
   end
 
 private

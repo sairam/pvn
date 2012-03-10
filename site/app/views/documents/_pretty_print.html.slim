@@ -1,0 +1,7 @@
+pre.prettyprint.linenums
+  ol.linenums
+    - counter = 1
+    - data.each do |line|
+      li{class='L#{counter}'}
+        span.tag= line
+        - counter += 1

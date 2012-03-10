@@ -3,6 +3,11 @@ class Language < ActiveRecord::Base
   has_many :translated_documents
   has_many :documents, :through => :translated_documents, :foreign_key => :source_language_id
   has_many :sentences, :through => :translated_documents
+
+  def to_param
+    self.slug
+  end
+
 end
 # == Schema Information
 # Schema version: 20120124141604

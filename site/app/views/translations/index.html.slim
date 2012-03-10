@@ -1,0 +1,27 @@
+- documents = @documents
+
+h3
+  'Translate a
+  = link_to 'Sentence', random_document_translations_path
+br
+h4
+  'Or choose your language of interest -
+  - Language.all.each do |l|
+    =link_to l.name, random_language_document_translations_path(:slug => l.slug)
+    '&nbsp;|&nbsp;
+  = link_to 'Any Language', random_document_translations_path
+hr
+
+.row
+  h3.span3 Document Title
+  h3.span5 Document Translations
+br
+- documents.each do |document|
+  .row
+    .span3
+      = link_to document.title, document_path(document.slug)
+      '&nbsp;(#{document.source_language.name})
+    .span9
+      - document.translatable_languages.each do |l|
+        = link_to l.name, random_language_document_translations_path(:slug => l.slug)
+        '&nbsp;

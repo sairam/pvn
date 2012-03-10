@@ -63,13 +63,13 @@ class DocumentsController < ApplicationController
 
   # Get all documents present
   def all
-    @documents = Document.all
+    @documents = Document.visible.all
     render 'index'
   end
 
   def translation
-    @translation = @document.find_translation(params[:slug])
-    @data = @translation.sequenced_sentences
+    @translation  = @document.find_translation(params[:slug])
+    @data         = @translation.sequenced_sentences
   end
 
   # Show statistics on a document
@@ -77,6 +77,8 @@ class DocumentsController < ApplicationController
   end
 
   def show
+    @source_translation = @document.source_translation
+    @data               = @source_translation.sequenced_sentences
   end
 
   # Get all documents by user

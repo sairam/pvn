@@ -1,0 +1,15 @@
+h3
+ '#{@source_sentence.language.name}
+ '&nbsp;
+ - 5.times do
+   '&raquo;
+ '&nbsp;
+ '#{@language.name}
+hr
+
+h4 #{@source_sentence.language.name}
+br
+= @source_sentence.sentence.data
+- unless @target_sentence.nil?
+  h4 #{@language.name}
+  = @source_sentence.sentence.data

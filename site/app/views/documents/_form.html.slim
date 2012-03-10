@@ -19,3 +19,5 @@
     .span3= f.submit "#{type} Document", :class => 'btn btn-primary'
     - if type == 'Edit'
       .span3.offset5= link_to 'Delete Document', '#', :class => 'btn btn-danger'
+      javascript:
+        $("#document_file").linedtextarea();

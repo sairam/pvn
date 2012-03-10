@@ -15,4 +15,5 @@
 //= require rails.validations
 // require rails.validations.formtastic
 //
+//= require jquery.linedtextarea
 //= require_tree .

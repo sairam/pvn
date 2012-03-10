@@ -1,0 +1,5 @@
+
+# http://alan.blog-city.com/jquerylinedtextarea.htm
+file 'vendor/assets/javascripts/jquery.linedtextarea.js', 'http://files.aw20.net/jquery-linedtextarea/jquery-linedtextarea.js'
+
+file 'vendor/assets/stylesheets/jquery.linedtextarea.css', 'http://files.aw20.net/jquery-linedtextarea/jquery-linedtextarea.css'
