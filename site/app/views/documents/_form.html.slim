@@ -1,10 +1,21 @@
 = semantic_form_for document, :validate => true do |f|
   .row
     = f.semantic_errors
-    = f.input :title, :input_html => {:class => "span6" }
-    = f.input :source_language, :input_html => {:class => "span6" }, :include_blank => false
-    = f.input :meta, :input_html => {:class => "span8" }
-    = f.input :file, :as => :file
+
+    - if type == 'Edit'
+      h3 #{document.title} - #{document.source_language.name}
+    - else
+      = f.input :title, :input_html => {:class => 'span6' }
+      = f.input :source_language, :input_html => {:class => 'span6' }, :include_blank => false
+
+    = f.input :languages, :as => :check_boxes
+    = f.input :meta, :input_html => {:class => 'span10', :rows => 4  }
+
+    - if type == 'Edit'
+      = f.input :file, :as => :text, :input_html => {:class => 'span10', :rows => 30 }
+      / get data from the contents in case of edit
 
     br
-    = f.submit "Upload #{type} Document", :class => 'btn btn-primary'
+    .span3= f.submit "#{type} Document", :class => 'btn btn-primary'
+    - if type == 'Edit'
+      .span3.offset5= link_to 'Delete Document', '#', :class => 'btn btn-danger'

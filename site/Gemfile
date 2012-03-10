@@ -48,7 +48,6 @@ gem 'formtastic-bootstrap'
 gem 'client_side_validations'
 #gem 'client_side_validations-formtastic'
 
-
 # use pjax instead of ajax!
 # gem 'pjax_rails'
 

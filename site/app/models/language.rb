@@ -4,13 +4,6 @@ class Language < ActiveRecord::Base
   has_many :documents, :through => :translated_documents, :foreign_key => :source_language_id
   has_many :sentences, :through => :translated_documents
 end
-
-# create_table "languages", :force => true do |t|
-#   t.string "slug", :limit => 2,  :null => false
-#   t.string "name", :limit => 50, :null => false
-# end
-#
-# add_index "languages", ["slug"], :name => "index_langs_on_slug", :unique => true
 # == Schema Information
 # Schema version: 20120124141604
 #

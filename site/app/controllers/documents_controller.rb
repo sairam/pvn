@@ -7,7 +7,7 @@ class DocumentsController < ApplicationController
 
   before_filter :new_document, :only => [:new]
   before_filter :own_document, :only => [:update, :delete, :edit]
-  before_filter :public_document, :only => [:show, :stats]
+  before_filter :public_document, :only => [:show, :stats, :translation]
 
   before_filter :filter_params, :only => [:update, :create]
 
@@ -33,10 +33,17 @@ class DocumentsController < ApplicationController
 
   # update the document
   def update
-    d = @document.update_attributes(params[:document])
-    if d.save
+
+    data = params[:document].delete :file
+    data.split(/\r\n/)
+    # create document sequences and sentences
+
+    if @document.update_attributes(params[:document], :as => :uploadable_user)
       flash[:notice] = "Document updated"
+      redirect_to documents_path
     else
+      flash[:notice] = "Error updating document"
+      raise @document.languages.inspect
       redirect_to edit_document_path(@document)
     end
   end
@@ -60,6 +67,11 @@ class DocumentsController < ApplicationController
   def all
     @documents = Document.all
     render 'index'
+  end
+
+  def translation
+    l = Language.find_by_slug(params[:slug])
+    @translation = @document.translated_documents.find_by_language_id(l).summary
   end
 
   # Show statistics on a document

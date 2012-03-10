@@ -14,9 +14,11 @@ class Document < ActiveRecord::Base
 
   validates_uniqueness_of :slug
 
-  attr_accessible :title, :source_language_id, :meta, :as => :uploadable_user
+  attr_accessible :title, :source_language_id, :meta, :language_ids, :as => :uploadable_user
 
   before_validation :validate_fields
+
+  validates_associated :languages # required if we are assigning languages from document form
 
   attr_accessor :file
 
@@ -29,29 +31,13 @@ class Document < ActiveRecord::Base
 private
 
   def validate_fields
-    self.slug = self.title.parameterize
-    self.is_hidden = false
+    # self.languages << self.source_language unless self.languages.include? self.source_language
+    self.slug = self.title.parameterize if self.slug.nil?
   end
 
 end
-
-# create_table "documents", :force => true do |t|
-#   t.string   "title",              :null => false
-#   t.string   "slug",               :null => false
-#   t.integer  "source_language_id", :null => false
-#   t.text     "meta"
-#   t.boolean  "is_hidden"
-#   t.integer  "user_id",            :null => false
-#   t.datetime "created_at"
-#   t.datetime "updated_at"
-# end
-#
-# add_index "documents", ["is_hidden"], :name => "index_documents_on_hidden"
-# add_index "documents", ["slug"], :name => "index_documents_on_slug", :unique => true
-# add_index "documents", ["source_language_id"], :name => "index_documents_on_lang_id"
-# add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
 # == Schema Information
-# Schema version: 20120124141604
+# Schema version: 20120310183149
 #
 # Table name: documents
 #
@@ -60,7 +46,7 @@ end
 #  slug               :string(255)     not null, indexed
 #  source_language_id :integer         not null, indexed
 #  meta               :text
-#  is_hidden          :boolean         indexed
+#  is_hidden          :boolean         default(FALSE), indexed
 #  user_id            :integer         not null, indexed
 #  created_at         :datetime
 #  updated_at         :datetime

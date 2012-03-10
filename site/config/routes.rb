@@ -6,6 +6,7 @@ Pvn::Application.routes.draw do
 
   # Documents
   resources   :documents do # should support edit in the future
+    get       '/:slug' => 'documents#translation', :on => :member, :as => :translation, :constraints => { :slug => /[a-z][a-z]/ }
     get       :stats,   :on => :member
     get       :all,     :on => :collection
     post      :upload,  :on => :collection
@@ -13,14 +14,14 @@ Pvn::Application.routes.draw do
 
   resource    :activity, :only =>[] do
     get       :my
-    get       "/:user" => "activity#show", :as => :user
+    get       '/:user' => 'activity#show', :as => :user
   end
 
 
-  root        :to => "home#index"
+  root        :to => 'home#index'
 end
 #== Route Map
-# Generated on 10 Mar 2012 18:41
+# Generated on 10 Mar 2012 23:49
 #
 #             user_session POST   /users/sign_in(.:format)       devise/sessions#create
 #     destroy_user_session DELETE /users/sign_out(.:format)      devise/sessions#destroy
@@ -35,6 +36,7 @@ end
 #                          PUT    /users(.:format)               devise/registrations#update
 #                          DELETE /users(.:format)               devise/registrations#destroy
 #               home_index GET    /home(.:format)                home#index
+#     translation_document GET    /documents/:id/:slug(.:format) documents#translation
 #           stats_document GET    /documents/:id/stats(.:format) documents#stats
 #            all_documents GET    /documents/all(.:format)       documents#all
 #         upload_documents POST   /documents/upload(.:format)    documents#upload

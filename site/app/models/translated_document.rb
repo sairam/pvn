@@ -3,29 +3,24 @@ class TranslatedDocument < ActiveRecord::Base
   belongs_to :language
   has_many :sentences
   has_many :sequences
-end
 
-# create_table "translated_documents", :force => true do |t|
-#   t.integer "document_id",      :null => false
-#   t.integer "language_id",      :null => false
-#   t.integer "percent_complete", :null => false
-#   t.boolean "is_complete",      :null => false
-# end
-#
-# add_index "translated_documents", ["document_id", "language_id"], :name => "index_document_langs_on_document_id_and_lang_id", :unique => true
-# add_index "translated_documents", ["document_id"], :name => "index_document_langs_on_document_id"
-# add_index "translated_documents", ["is_complete"], :name => "index_document_langs_on_completed"
-# add_index "translated_documents", ["language_id"], :name => "index_document_langs_on_lang_id"
+  def summary
+    self.sentences.select(:data).where(:is_approved => true)
+  end
+
+private
+
+end
 # == Schema Information
-# Schema version: 20120124141604
+# Schema version: 20120310183149
 #
 # Table name: translated_documents
 #
 #  id               :integer         not null, primary key
 #  document_id      :integer         not null, indexed => [language_id], indexed
 #  language_id      :integer         not null, indexed => [document_id], indexed
-#  percent_complete :integer         not null
-#  is_complete      :boolean         not null, indexed
+#  percent_complete :integer         default(0), not null
+#  is_complete      :boolean         default(FALSE), not null, indexed
 #
 # Indexes
 #

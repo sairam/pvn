@@ -25,3 +25,25 @@ Given a sentence id in an yet-to-be translated article
 - Display the requested line and the corresponding original language
 - Display previous and next lines
 - Display
+
+
+
+#photo-form
+  = semantic_form_for photo, :url => url, :remote => true do |f|
+    #qq_fileuploader.offset-label-width
+
+javascript:
+  var uploader = new qq.FileUploader({
+    element: $('#qq_fileuploader')[0],
+    action: $('#new_hotel_image').attr('action'),
+    params: {
+      authenticity_token: $('meta[name="csrf-token"]').attr('content')
+    },
+    allowedExtensions: ['png','jpg','jpeg','gif'],
+    debug: true,
+    onSubmit: function(id, fileName){},
+    onComplete: function(id, fileName, response){
+      d = $('#photo-list')
+      d.append(response.data);
+    }
+  });
