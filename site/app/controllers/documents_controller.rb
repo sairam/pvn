@@ -19,13 +19,13 @@ class DocumentsController < ApplicationController
 
   # save the document
   def create
-    d = current_user.documents.new(params[:document], :as => :uploadable_user)
-    if d.save
+    @document = current_user.documents.new(params[:document], :as => :uploadable_user)
+    if @document.save
       flash[:notice] = "Document created"
-      redirect_to edit_document_path(d)
+      redirect_to edit_document_path(@document)
     else
-      flash[:notice] = "Error creating document"
-      redirect_to new_document_path(d)
+      flash[:notice] = "Error updating document"
+      render :new
     end
   end
 
@@ -39,8 +39,7 @@ class DocumentsController < ApplicationController
       redirect_to documents_path
     else
       flash[:notice] = "Error updating document"
-      raise @document.languages.inspect
-      redirect_to edit_document_path(@document)
+      render :edit
     end
   end
 

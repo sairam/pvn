@@ -1,0 +1,16 @@
+.row
+  .span1
+    - @sequences.each do |seq|
+      =link_to seq.to_param, single_translation_path(seq.document, @language.to_param, seq.to_param)
+      |&nbsp;&raquo;&nbsp;
+      - # Add a link to the local page's data
+      =link_to '#', '#'
+      br
+
+  .span10.offset1
+    - @sentences.each do |sentence|
+      = link_to "Line #{sentence.sequence.to_param}", single_translation_path(sentence.translated_document.document, sentence.translated_document.language, sentence.sequence.to_param )
+      '&nbsp;&raquo;
+      = sentence.is_approved ? 'Approved' : 'Not Approved'
+      pre
+        |#{sentence.data}

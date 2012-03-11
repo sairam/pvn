@@ -1,0 +1,10 @@
+h2 #{@document.title} - (#{@document.source_language.name})
+br
+- @sequences.each do |seq|
+  = seq.sentence.data
+  .row
+    .span1= link_to seq.to_param, single_translation_path(seq.document, @document.source_language.to_param, seq.to_param)
+    - @document.translatable_languages.each do |lang|
+      .span1=link_to lang.name, single_translation_path(seq.document, lang.to_param, seq.to_param)
+  hr
+

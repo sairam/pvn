@@ -25,7 +25,7 @@ Pvn::Application.routes.draw do
     get       'random' => 'translations#random_single', :as => :random_single, :on => :member
 
     get       ':lang/:sequence' => 'translations#sentence', :as => :single, :constraints => { :lang => /[a-z][a-z]/ }, :on => :member
-    #get       ':lang' => 'translations#sentences', :as => :single, :constraints => { :lang => /[a-z][a-z]/ }, :on => :member
+    get       ':lang' => 'translations#sentences', :as => :all_sentences, :constraints => { :lang => /[a-z][a-z]/ }, :on => :member
 
   end
 
@@ -38,7 +38,7 @@ Pvn::Application.routes.draw do
   root        :to => 'home#index'
 end
 #== Route Map
-# Generated on 12 Mar 2012 00:28
+# Generated on 12 Mar 2012 02:28
 #
 #                          user_session POST   /users/sign_in(.:format)                    devise/sessions#create
 #                  destroy_user_session DELETE /users/sign_out(.:format)                   devise/sessions#destroy
@@ -73,6 +73,7 @@ end
 #        random_lang_single_translation GET    /translations/:id/:lang/random(.:format)    translations#random_lang_single {:lang=>/[a-z][a-z]/}
 #             random_single_translation GET    /translations/:id/random(.:format)          translations#random_single
 #                    single_translation GET    /translations/:id/:lang/:sequence(.:format) translations#sentence {:lang=>/[a-z][a-z]/}
+#             all_sentences_translation GET    /translations/:id/:lang(.:format)           translations#sentences {:lang=>/[a-z][a-z]/}
 #                          translations GET    /translations(.:format)                     translations#index
 #                                       POST   /translations(.:format)                     translations#create
 #                           translation GET    /translations/:id(.:format)                 translations#show

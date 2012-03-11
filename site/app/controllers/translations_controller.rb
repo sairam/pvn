@@ -1,7 +1,13 @@
 class TranslationsController < ApplicationController
   before_filter :find_translation, :except => [:index, :create, :remove_comment,:comment]
 
-  before_filter :find_language, :only => [:sentence, :random_language_document, :random_lang_single]
+  before_filter :find_language, :only => [:sentence, :sentences, :random_language_document, :random_lang_single]
+
+  def sentences
+    translated_document = @document.find_translation(@language.slug)
+    @sentences = translated_document.sentences
+    @sequences = @document.sequences
+  end
 
   def sentence
     source_document = @document.find_translation
@@ -110,6 +116,7 @@ class TranslationsController < ApplicationController
 
   def show
     # detailed reports of translations, contributors etc
+    @sequences = @document.sequences
   end
 
   private

@@ -6,10 +6,11 @@ h3
 br
 h4
   'Or choose your language of interest -
+  = link_to 'Any Language', random_document_translations_path
+  br
   - Language.all.each do |l|
     =link_to l.name, random_language_document_translations_path(:lang => l.slug)
-    '&nbsp;|&nbsp;
-  = link_to 'Any Language', random_document_translations_path
+    |&nbsp;|&nbsp;
 hr
 
 .row

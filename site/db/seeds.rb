@@ -7,17 +7,23 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Create default languages
-# TODO: Allow interface addition of Languages
-
-[ {slug: "en", name: "English"  },
-  {slug: "te", name: "Telugu"   },
-  {slug: "hi", name: "Hindi"    },
-  {slug: "ta", name: "Tamil"    },
-  {slug: "be", name: "Bengali"  },
-  {slug: "ka", name: "Kannada"  },
-  {slug: "ma", name: "Malayalam"}
-].each do |lang|
-  Language.create(lang)
+{
+  en: 'English',
+  bn: 'Bengali',
+  gu: 'Gujarati',
+  hi: 'Hindi',
+  kn: 'Kannada',
+  ml: 'Malayalam',
+  mr: 'Marathi',
+  ne: 'Nepali',
+  or: 'Oriya',
+  pa: 'Punjabi',
+  sa: 'Sanskrit',
+  ta: 'Tamil',
+  te: 'Telugu',
+  ur: 'Urdu'
+}.each do |slug,name|
+  Language.create({slug: slug, name: name})
 end
 
 User.create(email: 'pvn@example.com',password: '123456')

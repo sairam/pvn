@@ -46,19 +46,19 @@ class Document < ActiveRecord::Base
   end
 
   def source_translation
-    find_translation
+    self.find_translation
   end
 
 private
 
   def populate_data_in_source_language
-    td = self.translated_documents.find_by_language_id(source_language)
+    td = self.source_translation
     td.percent_complete = 100
     td.save
   end
 
   def validate_fields
-    # self.languages << self.source_language unless self.languages.include? self.source_language
+    errors.add(:languages, "Source Language not present in Languages list") unless self.languages.include? self.source_language
     self.slug = self.title.parameterize if self.slug.nil?
   end
 

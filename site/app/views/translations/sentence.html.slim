@@ -1,5 +1,5 @@
 h3
- '#{@source_sentence.language.name}
+ |#{@source_sentence.language.name}
  '&nbsp;
  - 5.times do
    '&raquo;
@@ -88,3 +88,21 @@ javascript:
       = f.input :data, :input_html => {:class => 'span8', :rows => 2}
     .row
       = f.buttons
+
+  javascript:
+    google.load("elements", "1", {packages: "transliteration"});
+    function onLoad() {
+      var options = {
+         sourceLanguage: 'en',
+         destinationLanguage:['te'],
+         shortcutKey: 'ctrl+g',
+         transliterationEnabled: true
+      };
+
+      // Create an instance on TransliterationControl with the required options.
+      var control = new google.elements.transliteration.TransliterationControl(options);
+
+      // Enable transliteration in the textbox with id
+      control.makeTransliteratable(['sentence_data']);
+    }
+    google.setOnLoadCallback(onLoad);

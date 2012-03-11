@@ -14,8 +14,20 @@ Document Owner ( a user ):
 (2)
 Given a sentence id in an yet-to-be translated article
 - Display the requested line and the corresponding original language
-- Display previous and next lines
+- Display previous and next lines with help of current line
 - Display
+
+(3)
+- Setup Google Transliterate for languages present
+http://code.google.com/apis/language/transliterate/v1/customtransliteration.html
+http://code.google.com/apis/language/transliterate/v1/getting_started.html
+http://code.google.com/apis/language/transliterate/v1/reference.html
+
+See keyboard layouts
+http://code.google.com/apis/language/virtualkeyboard/v1/kbd_keyboard.html?name=te_phone ( There are also transformation rules )
+
+Indian Languages that Google does not support -
+Assamese, Bodo, Dogri, Kashmiri, Konkani, Maithili, Manipuri, Santhali, Sindhi
 
 
 -- Misc data

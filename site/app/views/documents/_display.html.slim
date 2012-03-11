@@ -2,6 +2,9 @@ h2 #{document.title} ( #{document.source_language.name} )
 h3
   - document.languages.each do |document_language|
     = link_to document_language.name, translation_document_path(document,document_language.slug)
+    '&nbsp;(
+    = link_to '#', all_sentences_translation_path(document.to_param,document_language.slug)
+    '&nbsp;)
     '&nbsp;
 hr
 p #{document.meta}
