@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310183149) do
+ActiveRecord::Schema.define(:version => 20120311090412) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id",   :default => 0
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20120310183149) do
     t.boolean  "is_approved"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sequence_id"
   end
 
   add_index "sentences", ["is_approved"], :name => "index_lines_on_approved"
@@ -77,15 +78,13 @@ ActiveRecord::Schema.define(:version => 20120310183149) do
   add_index "sentences", ["user_id"], :name => "index_lines_on_user_id"
 
   create_table "sequences", :force => true do |t|
-    t.integer  "translated_document_id", :null => false
-    t.float    "sequence",               :null => false
-    t.integer  "sentence_id",            :null => false
+    t.integer  "document_id", :null => false
+    t.float    "sequence",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "sequences", ["sentence_id"], :name => "index_sequences_on_sentence_id"
-  add_index "sequences", ["translated_document_id"], :name => "index_sequences_on_document_lang_id"
+  add_index "sequences", ["document_id"], :name => "index_sequences_on_document_lang_id"
 
   create_table "translated_documents", :force => true do |t|
     t.integer "document_id",                         :null => false

@@ -12,8 +12,13 @@ Pvn::Application.routes.draw do
     post      :upload,  :on => :collection
   end
 
-  resources   :translations, :only => [:show, :index] do
+  resources   :translations, :only => [:show, :index, :create, :destroy] do
     get       ':slug/:sequence' => 'translations#sentence', :as => :single, :constraints => { :slug => /[a-z][a-z]/ }, :on => :member
+    #get       ':slug' => 'translations#sentences', :as => :single, :constraints => { :slug => /[a-z][a-z]/ }, :on => :member
+    post      :comment, :on => :collection
+    delete    :remove_comment, :on => :member
+
+    post      :approve,   :decline,   :on => :member
 
     get       ':slug/random' => 'translations#random_language_document', :as => :random_language_document, :constraints => { :slug => /[a-z][a-z]/ }, :on => :collection
     get       'random' => 'translations#random_document', :as => :random_document, :on => :collection
@@ -31,7 +36,7 @@ Pvn::Application.routes.draw do
   root        :to => 'home#index'
 end
 #== Route Map
-# Generated on 11 Mar 2012 11:30
+# Generated on 11 Mar 2012 23:16
 #
 #                          user_session POST   /users/sign_in(.:format)                    devise/sessions#create
 #                  destroy_user_session DELETE /users/sign_out(.:format)                   devise/sessions#destroy
@@ -58,12 +63,18 @@ end
 #                                       PUT    /documents/:id(.:format)                    documents#update
 #                                       DELETE /documents/:id(.:format)                    documents#destroy
 #                    single_translation GET    /translations/:id/:slug/:sequence(.:format) translations#sentence {:slug=>/[a-z][a-z]/}
+#                  comment_translations POST   /translations/comment(.:format)             translations#comment
+#            remove_comment_translation DELETE /translations/:id/remove_comment(.:format)  translations#remove_comment
+#                   approve_translation POST   /translations/:id/approve(.:format)         translations#approve
+#                   decline_translation POST   /translations/:id/decline(.:format)         translations#decline
 # random_language_document_translations GET    /translations/:slug/random(.:format)        translations#random_language_document {:slug=>/[a-z][a-z]/}
 #          random_document_translations GET    /translations/random(.:format)              translations#random_document
 #        random_slug_single_translation GET    /translations/:id/:slug/random(.:format)    translations#random_slug_single {:slug=>/[a-z][a-z]/}
 #             random_single_translation GET    /translations/:id/random(.:format)          translations#random_single
 #                          translations GET    /translations(.:format)                     translations#index
+#                                       POST   /translations(.:format)                     translations#create
 #                           translation GET    /translations/:id(.:format)                 translations#show
+#                                       DELETE /translations/:id(.:format)                 translations#destroy
 #                           my_activity GET    /activity/my(.:format)                      activities#my
 #                         user_activity GET    /activity/:user(.:format)                   activity#show
 #                                  root        /                                           home#index

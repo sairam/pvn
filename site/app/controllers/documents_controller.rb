@@ -3,8 +3,6 @@
 # add support for doc, pdf, markdown format and html
 class DocumentsController < ApplicationController
 
-  before_filter :get_current_user # to be removed once devise is setup
-
   before_filter :new_document, :only => [:new]
   before_filter :own_document, :only => [:update, :delete, :edit]
   before_filter :public_document, :only => [:show, :stats, :translation]
@@ -24,7 +22,7 @@ class DocumentsController < ApplicationController
     d = current_user.documents.new(params[:document], :as => :uploadable_user)
     if d.save
       flash[:notice] = "Document created"
-      redirect_to documents_path
+      redirect_to edit_document_path(d)
     else
       flash[:notice] = "Error creating document"
       redirect_to new_document_path(d)
@@ -107,10 +105,6 @@ class DocumentsController < ApplicationController
   # load public documents
   def public_document
     @document = Document.visible.find_by_slug(params[:id])
-  end
-
-  def get_current_user
-    sign_in(User.first)
   end
 
 end

@@ -3,7 +3,8 @@ class Document < ActiveRecord::Base
   has_many :translated_documents
   has_many :languages, :through => :translated_documents
   has_many :sentences , :through => :translated_documents
-  has_many :sequences , :through => :translated_documents
+
+  has_many :sequences
 
   belongs_to :source_language, :class_name => Language
   belongs_to :user

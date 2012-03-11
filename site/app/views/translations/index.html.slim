@@ -19,7 +19,7 @@ br
 - documents.each do |document|
   .row
     .span3
-      = link_to document.title, document_path(document.slug)
+      = link_to document.title, translation_path(document.slug)
       '&nbsp;(#{document.source_language.name})
     .span9
       - document.translatable_languages.each do |l|

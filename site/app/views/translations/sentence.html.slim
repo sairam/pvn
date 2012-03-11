@@ -9,7 +9,81 @@ hr
 
 h4 #{@source_sentence.language.name}
 br
-= @source_sentence.sentence.data
-- unless @target_sentence.nil?
-  h4 #{@language.name}
-  = @source_sentence.sentence.data
+= @source_sentence.data
+
+br
+hr
+h4 #{@language.name}
+br
+- counter = -1
+- @target_sentences.each do |t|
+  - counter += 1
+  div.sentence{id="translation-#{t.id}"}
+    'Translation provided by
+    = link_to t.user.email, '#'
+    '&nbsp;
+    = link_to 'Toggle Comments', '#', :class => 'btn btn-info toggle-comments'
+    '&nbsp;
+    = link_to 'Add Comment', '#', :class => 'btn comment-sentences no-parent'
+    '&nbsp;
+    = link_to 'Delete Translation', translation_path(t), :method => 'delete', :class => 'btn btn-danger'
+    '&nbsp;
+    - unless t.is_approved?
+      = link_to 'Approve Translation', approve_translation_path(t), :method => 'post', :class => 'btn btn-primary'
+    - else
+      = link_to 'Decline Translation', decline_translation_path(t), :method => 'post', :class => 'btn btn-success'
+    br
+    .data= t.data
+    .comments{style='margin-left:20px'}
+      - Comment.each_with_level(@comments[counter]) do |comment,level|
+        .comment-thread{style='margin-left:#{level*20}px'}
+          pre.comments{id='comment-#{comment.id}'}
+            = comment.body
+            .pull-right
+              = link_to 'reply', '#', :class => 'comment-sentences'
+              '&nbsp;
+              = link_to 'delete', remove_comment_translation_path(comment), :method => 'delete'
+    .new-comment.comments
+      = semantic_form_for t, :url => comment_translations_path, :method => :post do |f|
+        = f.semantic_fields_for :comment_threads do |c|
+          = c.input :commentable_id,  :as => :hidden, :input_html => {:value => t.id}
+          = c.input :parent_id,       :as => :hidden, :input_html => {:value => nil }
+          = c.input :body, :input_html => { :class => 'span10' }, :label => 'Comment'
+        = f.submit 'Add Comment', :class => 'btn'
+
+hr
+
+javascript:
+  $('.comment-sentences').live('click', function(){
+    var commentId,element ;
+    if($(this).hasClass('no-parent')) {
+      commentId = '';
+      element = $(this).closest('.sentence').find('form').detach();
+      $(this).closest('.sentence').children('.new-comment').append(element);
+      if( ! element.is(':visible') ) {
+        $(this).closest('.sentence').children('.comments').toggle();
+      }
+    } else {
+      var mainComments = $(this).closest('.comments');
+      commentId = mainComments.attr('id').split('-')[1];
+      var element = mainComments.closest('.sentence').find('form').detach();
+      mainComments.parent().append(element);
+    }
+    element.find('#sentence_comment_threads_parent_id').attr('value',commentId);
+    element.find('input[name="sentence[comment_threads][body]"]').focus();
+    return false;
+  });
+  $('.toggle-comments').live('click', function(){
+    $(this).parent().children('.comments').toggle();
+    return false;
+  });
+  $('.comments').toggle();
+
+= semantic_form_for @new_sentence, :url => translations_path do |f|
+  = f.input :sentence_id, :as => :hidden
+  = f.input :translated_document_id, :as => :hidden
+
+  .row
+    = f.input :data, :input_html => {:class => 'span8', :rows => 2}
+  .row
+    = f.buttons
