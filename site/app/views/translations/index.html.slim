@@ -7,7 +7,7 @@ br
 h4
   'Or choose your language of interest -
   - Language.all.each do |l|
-    =link_to l.name, random_language_document_translations_path(:slug => l.slug)
+    =link_to l.name, random_language_document_translations_path(:lang => l.slug)
     '&nbsp;|&nbsp;
   = link_to 'Any Language', random_document_translations_path
 hr
@@ -23,5 +23,5 @@ br
       '&nbsp;(#{document.source_language.name})
     .span9
       - document.translatable_languages.each do |l|
-        = link_to l.name, random_language_document_translations_path(:slug => l.slug)
+        = link_to l.name, random_lang_single_translation_path(document, :lang => l.slug)
         '&nbsp;

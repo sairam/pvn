@@ -66,7 +66,7 @@ class DocumentsController < ApplicationController
   end
 
   def translation
-    @translation  = @document.find_translation(params[:slug])
+    @translation  = @document.find_translation(params[:lang])
     @data         = @translation.sequenced_sentences
   end
 

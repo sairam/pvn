@@ -79,11 +79,12 @@ javascript:
   });
   $('.comments').toggle();
 
-= semantic_form_for @new_sentence, :url => translations_path do |f|
-  = f.input :sentence_id, :as => :hidden
-  = f.input :translated_document_id, :as => :hidden
+- if @new_sentence
+  = semantic_form_for @new_sentence, :url => translations_path do |f|
+    = f.input :sentence_id, :as => :hidden
+    = f.input :translated_document_id, :as => :hidden
 
-  .row
-    = f.input :data, :input_html => {:class => 'span8', :rows => 2}
-  .row
-    = f.buttons
+    .row
+      = f.input :data, :input_html => {:class => 'span8', :rows => 2}
+    .row
+      = f.buttons
